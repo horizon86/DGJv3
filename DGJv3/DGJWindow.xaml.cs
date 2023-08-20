@@ -57,14 +57,14 @@ namespace DGJv3
 
             if (IsLogRedirectDanmaku)
             {
-                Task.Run(() =>
+                Task.Run(async () =>
                 {
                     try
                     {
                         if (!PluginMain.RoomId.HasValue) { return; }
 
                         string finalText = text.Substring(0, Math.Min(text.Length, LogDanmakuLengthLimit));
-                        string result = LoginCenterAPIWarpper.Send(PluginMain.RoomId.Value, finalText);
+                        string result = await LoginCenterAPIWarpper.Send_Async(PluginMain.RoomId.Value, finalText);
                         if (result == null)
                         {
                             PluginMain.Log("发送弹幕时网络错误");
